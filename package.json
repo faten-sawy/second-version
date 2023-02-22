@@ -1,0 +1,30 @@
+{
+  "name": "plan-b",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next/font": "13.1.4",
+    "axios": "^1.2.6",
+    "cookie": "^0.5.0",
+    "next": "13.1.4",
+    "next-share": "^0.19.0",
+    "react": "18.2.0",
+    "react-cookie": "^4.1.1",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.7.1",
+    "swiper": "^8.4.6",
+    "swr": "^2.0.3"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4"
+  }
+}
