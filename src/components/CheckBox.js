@@ -27,7 +27,10 @@ const CheckBox = ({addFilterItem,value,clearFlag,test,type}) =>{
 
 
     return(
-        <input type="checkbox" onChange={(e)=>handleChecked(e)} value={value} checked={isChecked} className=" check 5xl:w-[33px] [200px] 5xl:h-[33px] checked:bg-[#009C90]" />
+        <label class="checkbox 5xl:w-[33px] max-5xl:w-[28px] max-5xl:h-[28px] [200px] 5xl:h-[33px]">
+            <input type="checkbox" onChange={(e)=>handleChecked(e)} value={value} checked={isChecked} className=" w-full h-full  checked:bg-[#009C90]" />
+            <div class="check"></div>
+        </label>
     )
 }
 export default CheckBox

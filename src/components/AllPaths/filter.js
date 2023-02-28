@@ -3,12 +3,18 @@ import { useEffect, useState } from "react"
 import styles from "../../styles/Home.module.css"
 import CheckBox from "../CheckBox"
 import {MdKeyboardArrowDown,MdKeyboardArrowUp} from "react-icons/md"
-
-const Filter = ({passFilterdItems}) =>{
+import { useDispatch } from "react-redux"
+import { SET_LOADING } from "@/redux/reducers/loading"
+const Filter = ({passFilterdItems,typeId}) =>{
     const [categories,setCategories] = useState([])
     const [flagFilter,setFlagFilter] = useState(false)
     const [filterStyle,setFilterStyle] = useState("hidden")
     const [filterMobileStyle,setFilterMobileStyle] = useState("w-0 px-0")
+    const [filterItems,setFilterItems] = useState([])
+    const [clearFlag,setClearFlag] = useState(false)
+    const [unchecked,setUnchecked] = useState(false)
+    const [lang,setLang] = useState([])
+    const dispatch = useDispatch()
    
     const period = [
         {
@@ -19,17 +25,6 @@ const Filter = ({passFilterdItems}) =>{
         },
         {
             name:"دورة متوسطة(10-20)ساعة"
-        }
-    ]
-    const languages = [
-        {
-            name:"العربية"
-        },
-        {
-            name:"الانجليزية"
-        },
-        {
-            name:"الأثنين معا"
         }
     ]
     const order = [
@@ -50,14 +45,11 @@ const Filter = ({passFilterdItems}) =>{
         }
     ]
 
-    const [filterItems,setFilterItems] = useState([])
-    const [clearFlag,setClearFlag] = useState(false)
-    const [unchecked,setUnchecked] = useState(false)
-    const [lang,setLang] = useState([])
+    
 
     const [data,setData] = useState({
         categoryid:[],
-        duration:[],
+        duration:"",
         langid:[],
         ordaring:""
     })
@@ -105,7 +97,7 @@ const Filter = ({passFilterdItems}) =>{
                     break;
                 }
                 case "duration":{
-                    setData({...data,duration:data.duration.filter(item => item !== name)})
+                    setData({...data,duration:""})
                     break;
                 }
                 case "order":{
@@ -125,7 +117,7 @@ const Filter = ({passFilterdItems}) =>{
                     break;
                 }
                 case "duration" :{
-                    setData({...data,duration:[...data.duration,name]})
+                    setData({...data,duration:name})
                     break;
                 }
                 case "order": {
@@ -138,31 +130,44 @@ const Filter = ({passFilterdItems}) =>{
     }
 
     const handleSubmit = (type,e) =>{
-        e.preventDefault()
-        console.log(data)
+        dispatch(SET_LOADING(true))
+
+        e.preventDefault()     
         switch(type){
             case "setFilter" : {
-                const categoryIds=[2]
-                const duration="دورة قصيرة"
-                const lang=[2]
-                const order = "1"
-
                 const sendingData = {
-                    categoryid:[2],
+                    categoryid:data.categoryid,
+                    duration:data.duration,
+                    langid: data.langid,
+                    ordaring:data.ordaring,
+                    courstypeid:typeId || 3
+                }
+                const sendingData2 = {
+                    categoryid:[3],
                     duration:"",
                     langid:[],
                     ordaring:"",
                     courstypeid:3
                 }
+                console.log({sendingData},{sendingData2})
                 
                 // POST filterItems
-                axios.post(`${process.env.NEXT_PUBLIC_FILTER}?lang=en`,sendingData).then(res=>passFilterdItems(res.data))
+                axios.post(`${process.env.NEXT_PUBLIC_FILTER}?lang=en`,sendingData).then(res=>{
+                    console.log("Data",res.data)
+                    passFilterdItems(res.data)
+                })
                 setFilterStyle("hidden")
+                setFilterMobileStyle("w-0 px-0")
+                window.scrollTo(0, 0)
                 break;
             }
             case "clearFilter" : {
                 setClearFlag(true)
                 setFilterItems([])
+                dispatch(SET_LOADING(false))
+                setFilterStyle("hidden")
+                setFilterMobileStyle("w-0 px-0")
+                window.scrollTo(0, 0)
 
             }
         }
@@ -176,7 +181,7 @@ const Filter = ({passFilterdItems}) =>{
     const handleOpenFilter = () =>{
         if(!flagFilter){
             setFilterStyle("block")
-            setFilterMobileStyle("w-[280px]")
+            setFilterMobileStyle("w-[280px] px-4")
         }
         else{
             setFilterStyle("hidden")
@@ -191,10 +196,7 @@ const Filter = ({passFilterdItems}) =>{
             {/*TOP PART*/}
             <div className="top-section w- 5xl:top-[105px] 5xl:min-h-[127px] 5xl:w-[1594px] ">
                 <div className="flex flex-col">
-                    <div className="flex justify-between mt-[28px]">
-                        <p className="font-[ar-meduim] 2xl:text-[20px]">النتيجة:125 من 500</p>
-                        <p className="max-lg:text-[14.74px] 2xl:text-[22px] font-[ar-bold] ">التصفيات النشطة</p>  
-                    </div>
+                   
                     <div className="flex justify-between mb-4 mt-4">
                         <button onClick={handleOpenFilter} className=" flex items-center justify-between border border-[#2B2E30] text-right rounded-xl px-[22px] w-[19%] h-[50px] lg:text-[18px] font-[ar-meduim] ">
                             <span>{flagFilter?<MdKeyboardArrowUp/>:<MdKeyboardArrowDown/>}</span>
@@ -212,7 +214,7 @@ const Filter = ({passFilterdItems}) =>{
             </div>
             
                 {/* FILTER PART*/}
-            <div className={`filter-part z-30  max-lg:px-4 px-16 overflow-hidden ${filterStyle} absolute bg-white 5xl:h-[795px] w-[88.3vw] md:py-[40.5px]  2xl:py-[60.5px] max-md:hidden`}>
+            <div className={`max-md:hidden filter-part z-30  max-lg:px-4 px-16 overflow-hidden ${filterStyle} absolute bg-white 5xl:h-[795px] w-[88.3vw] md:py-[40.5px]  2xl:py-[60.5px]`}>
                 <div className="flex flex-row-reverse md:mb-[35.175px] 2xl:mb-[52.5px]">
                     <div className="w-[25.4%] border-l border-[#D6D6D6] pr-[4.7%] max-lg:pr-[1.525%]">
                         <p className="text-right  max-md:text-[18.76px] 2xl:text-[28px] font-[ar-bold] max-md:mb-[30.8px] 2xl:mb-[46px]">الفئات</p>
@@ -262,8 +264,8 @@ const Filter = ({passFilterdItems}) =>{
                 
             </div>
 
-            {/**FILTER PART IM PHONE SIZE */}
-            <div className={`filter-part mobile-filter z-30  px-4 overflow-hidden ${filterMobileStyle} absolute bg-white w-[280px] max-md:py-[40.5px]   hidden max-md:block`}>
+            {/**FILTER PART IN PHONE SIZE */}
+            <div className={` hidden max-md:block mobile-filter z-30  px-4 overflow-hidden  absolute bg-white  ${filterMobileStyle} max-md:py-[20.5px]`}>
                 <div className="flex flex-col flex-wrap items-start md:mb-[35.175px] 2xl:mb-[52.5px]">
                     <div className="w-[100%] border-b border-[#D6D6D6] py-4 max-lg:pr-[1.525%]">
                         <p className="text-right  max-md:text-[18.76px]  font-[ar-bold] max-md:mb-[30.8px] ">الفئات</p>
@@ -305,8 +307,8 @@ const Filter = ({passFilterdItems}) =>{
                     </div>
                 </div>
                 <div className="flex justify-center flex-col">
-                    <button className="border border-[#009C90] text-[#009C90] bg-white md:h-[46.9px] 2xl:h-[70px] mb-4 mr-[2.5%] text-[22px] font-[ar-meduim] w-[100%] rounded-2xl" onClick={(e)=>handleSubmit("setFilter",e)}>تطبيق التصفية</button>
-                    <button className={`border ${styles.list_button} text-white border-[#009C90] btn  md:h-[46.9px] 2xl:h-[70px] text-[22px] font-[ar-meduim] w-[100%] rounded-2xl`} onClick={(e)=>handleSubmit("clearFilter",e)}>مسح التصفية</button>
+                    <button className="border border-[#009C90] text-[#009C90] bg-white md:h-[46.9px] 2xl:h-[70px] mb-4 mr-[2.5%] max-md:text-[18.5px] text-[22px] font-[ar-meduim] w-[100%] rounded-2xl" onClick={(e)=>handleSubmit("setFilter",e)}>تطبيق التصفية</button>
+                    <button className={`border ${styles.list_button} text-white border-[#009C90] btn  md:h-[46.9px] 2xl:h-[70px] max-md:text-[18.5px] text-[22px] font-[ar-meduim] w-[100%] rounded-2xl`} onClick={(e)=>handleSubmit("clearFilter",e)}>مسح التصفية</button>
                 </div>
                 
             </div>

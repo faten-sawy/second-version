@@ -8,7 +8,7 @@ import "swiper/css/grid";
 
 
 import Course from '../Cards/Course';
-import { useEffect, useState } from 'react';
+
 const NewCoursesSlider = ({data}) =>{
 
     return(

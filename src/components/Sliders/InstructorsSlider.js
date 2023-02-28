@@ -22,6 +22,16 @@ const InstructorSlider = ({data}) =>{
                     fill:"row"
                 }
             },
+            280:{
+                slidesPerView: 2,
+                slidesPerGroup:4,
+                spaceBetween:20,
+                grid:{
+                    rows:2,
+                    fill:"row"
+                }
+
+            },
             
             1024: {
                 slidesPerView: 6,
@@ -42,7 +52,7 @@ const InstructorSlider = ({data}) =>{
             slidesPerView={1}         
         >
             {data?.map((item)=>(
-            <SwiperSlide>
+            <SwiperSlide className='mb-8'>
                 <InstractorCard data={item}/> 
             </SwiperSlide>
                 

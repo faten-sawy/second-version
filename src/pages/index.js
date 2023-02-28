@@ -1,7 +1,6 @@
 import Head from 'next/head'
-import NewCourses
- from '@/components/Home/NewCourses'
-import OnlineCourses from '@/components/Home/OnlineCourses'
+import NewCourses from '@/components/Home/NewCourses'
+import OnlineCourses from '@/components/Home/OfflineCourses'
 import EducationalTracks from '@/components/Home/EducationalTracks'
 import Trainers from '@/components/Home/Trainers'
 import Category from '@/components/Home/Category'

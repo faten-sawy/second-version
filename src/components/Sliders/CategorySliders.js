@@ -33,8 +33,8 @@ const CategorySlider = ({data}) =>{
             },
             1280:{
                 
-                slidesPerView: 3,
-                slidesPerGroup:6,
+                slidesPerView: 4,
+                slidesPerGroup:8,
                 spaceBetween:20,
                 grid:{
                     rows:2,

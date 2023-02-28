@@ -24,7 +24,7 @@ const Footer = ()=>{
     ]
     return(
         <div className="footer min-h-[236px] max-2xl:px-8 pt-[75px] 2xl:px-[84px] ">
-            <div className="py-4 lg:flex lg:justify-between "> {/**lg:w-[20%]*/}
+            <div className="py-4 lg:flex lg:justify-between">
                 <div className="max-lg:w-[90vw] max-sm:mr-[30px] flex w-[20.1vw] mr-[10.6vw] max-2xl:mr-[5vw] flex-col max-sm:justify-center max-sm:items-center max-lg:items-center">
                     <div className=" max-sm:flex max-sm:items-center sm:flex sm:items-center ">
                         <Image src={Logo} alt="logo" className="max-sm:w-[50px]"/>
@@ -44,7 +44,7 @@ const Footer = ()=>{
                     {/* Container Plan B and More */}
                     <div className="max-lg:flex w-[100%] lg:flex max-lg:justify-between max-sm:flex-wrap  lg:justify-between lg:mr-12 2xl:justify-around ">
                         {/* Plan B */}
-                        <div className=" my-4 max-sm:w-[40vw]">
+                        <div className=" my-4 max-sm:w-[40vw] max-lg:">
                             <div>
                             <h2 className="max-sm:text-left text-white lg:text-[20px] 2xl:text-[24px] font-[en-bold] text-[20px]">Plan B</h2>
                             <CustomLine/>
@@ -62,7 +62,7 @@ const Footer = ()=>{
                             
                         </div>
                         {/* More */}
-                        <div className=" my-4 max-sm:w-[40vw]">
+                        <div className=" my-4 max-sm:w-[40vw] max-lg:">
                         <div>
                             <h2 className="max-sm:text-left text-white  2xl:text-[24px] font-[en-bold] text-[20px]">More</h2>
                             <CustomLine/>
@@ -76,7 +76,7 @@ const Footer = ()=>{
                             </ul>
 
                         </div>
-                        <div className=" my-4 max-sm:w-[40vw]">
+                        <div className=" my-4 max-sm:w-[40vw] max-lg:">
                                 <div>
                                 <h2 className="max-sm:text-left text-white  2xl:text-[24px] font-[en-bold] text-[20px]">Connect With Us</h2>
                                 <CustomLine/>
@@ -90,7 +90,7 @@ const Footer = ()=>{
                                 
                         </div>
                         {/**Applications */}
-                        <div className=" my-4 max-sm:w-[40vw]">
+                        <div className=" my-4 max-sm:w-[40vw] max-lg:">
                             <div>
                             <h2 className=" text-white  2xl:text-[24px] font-[en-bold] text-[20px] max-sm:text-left">Applications</h2>
                             <CustomLine/>
@@ -99,8 +99,7 @@ const Footer = ()=>{
                         <p className="text-white h-[42px] flex items-center justify-center" >Soon...</p>
                             
                         </div>
-                    </div>
-               
+                    </div>              
                 </div>
             </div>
             {/* Follow Us */}
@@ -111,7 +110,9 @@ const Footer = ()=>{
 
                     </div>
             </div>
-            <p className="text-center text-white text-[12px] py-4 lg:text-[16px] 2xl:text-[20px] font-[en-regular] border-t-[1px] border-[#F5F5F5]">Copyright C 2022 Planb Acadimy. All Righys Reserved</p>           
+            <p className="text-center text-white text-[12px] py-4 lg:text-[16px] 2xl:text-[20px] font-[en-regular] border-t-[1px] border-[#F5F5F5]">
+                Copyright C 2022 Planb Acadimy. All Righys Reserved
+            </p>           
         </div>
     )
 }
